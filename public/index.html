@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Study Planner - Smart Balanced Learning</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+    <!-- Navbar -->
+    <nav class="navbar glass-effect">
+        <div class="container navbar-content">
+            <a href="#home" class="logo">
+                <span class="logo-icon"><i class="fas fa-brain"></i></span>
+                <span class="logo-text">AI Study Planner</span>
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="login.html" class="nav-btn login-btn">Login</a>
+                <a href="signup.html" class="nav-btn signup-btn gradient-btn">Sign Up</a>
+                <button id="theme-toggle" class="theme-toggle-btn">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="mobile-toggle" id="mobile-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="container hero-content">
+                <div class="hero-text animate-up">
+                    <h1 class="hero-title">Master Your Time with <br><span class="text-gradient">AI Study Planner</span></h1>
+                    <p class="hero-subtitle">
+                        An intelligent system designed to balance Academic Subjects, 
+                        DSA Practice, Skill Development, and Competitive Exam Preparation.
+                    </p>
+                    <div class="hero-btns">
+                        <a href="signup.html" class="btn primary-btn gradient-btn">Get Started</a>
+                        <a href="#features" class="btn secondary-btn glass-btn">Explore Features</a>
+                    </div>
+                </div>
+
+                <!-- Hero Visual - Dashboard Preview -->
+                <div class="hero-visual animate-fade">
+                    <div class="dashboard-preview glass-card">
+                        <div class="dashboard-header">
+                            <div class="window-controls">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                            </div>
+                            <div class="dashboard-title">My Study Dashboard</div>
+                        </div>
+                        
+                        <div class="dashboard-grid">
+                            <!-- Progress Overview -->
+                            <div class="preview-widget progress-widget">
+                                <h4>Weekly Progress</h4>
+                                <div class="chart-container">
+                                    <div class="chart-bar" style="height: 60%;"></div>
+                                    <div class="chart-bar active" style="height: 85%;"></div>
+                                    <div class="chart-bar" style="height: 45%;"></div>
+                                    <div class="chart-bar" style="height: 70%;"></div>
+                                    <div class="chart-bar" style="height: 55%;"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- AI Status -->
+                            <div class="preview-widget status-widget">
+                                <div class="status-circle">
+                                    <span class="status-value">78%</span>
+                                    <span class="status-label">Today's Focus</span>
+                                </div>
+                            </div>
+
+                            <!-- Task Indicators -->
+                            <div class="preview-widget tasks-widget">
+                                <h4>AI Generated Plan</h4>
+                                <ul class="mock-tasks">
+                                    <li class="completed">
+                                        <i class="fas fa-check-circle"></i>
+                                        <span>DSA: Graph Algorithms</span>
+                                    </li>
+                                    <li>
+                                        <i class="far fa-circle"></i>
+                                        <span>Physics: Quantum Mechanics</span>
+                                    </li>
+                                    <li>
+                                        <i class="far fa-circle"></i>
+                                        <span>Skill: React Hooks Deep Dive</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Mini Goal Indicator -->
+                        <div class="goal-indicator glass-effect">
+                            <i class="fas fa-trophy"></i>
+                            <span>Placement Goal: 85% Complete</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Decorative Soft Glows -->
+                    <div class="glow-bg glow-1"></div>
+                    <div class="glow-bg glow-2"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features-section">
+            <div class="container section-header text-center">
+                <h2 class="section-title">Powerful Features for <span class="text-gradient">Peak Performance</span></h2>
+                <p class="section-subtitle">Discover how our AI helps you stay ahead in your academic journey.</p>
+            </div>
+            <div class="container features-grid">
+                <div class="glass-card feature-card animate-scroll">
+                    <div class="feature-icon bg-blue"><i class="fas fa-bolt"></i></div>
+                    <h3>Smart AI Scheduling</h3>
+                    <p>Automatically balances academics, DSA, and skills based on your performance and goals.</p>
+                </div>
+                <div class="glass-card feature-card animate-scroll">
+                    <div class="feature-icon bg-purple"><i class="fas fa-map-signs"></i></div>
+                    <h3>Goal-Based Planning</h3>
+                    <p>Plan your learning journeys based on specific career goals like SWE roles or GATE preparation.</p>
+                </div>
+                <div class="glass-card feature-card animate-scroll">
+                    <div class="feature-icon bg-blue"><i class="fas fa-chart-pie"></i></div>
+                    <h3>Progress Tracking</h3>
+                    <p>Visualize your study consistency and progress through beautiful, interactive analytics.</p>
+                </div>
+                <div class="glass-card feature-card animate-scroll">
+                    <div class="feature-icon bg-purple"><i class="fas fa-brain"></i></div>
+                    <h3>Productivity Optimization</h3>
+                    <p>AI learns your habits and suggests the best study routine to maximize focused learning.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="how-section">
+            <div class="container section-header text-center">
+                <h2 class="section-title">How It <span class="text-gradient">Works</span></h2>
+            </div>
+            <div class="container steps-container">
+                <div class="step-card animate-scroll">
+                    <div class="step-number">01</div>
+                    <div class="step-icon"><i class="fas fa-bullseye"></i></div>
+                    <h3>Enter Study Goals</h3>
+                    <p>User selects subjects, skills, and competitive exam preparation targets.</p>
+                </div>
+                <div class="step-card animate-scroll">
+                    <div class="step-number">02</div>
+                    <div class="step-icon"><i class="fas fa-magic"></i></div>
+                    <h3>AI Generates Plan</h3>
+                    <p>The system creates an optimized daily schedule balancing all learning priorities.</p>
+                </div>
+                <div class="step-card animate-scroll">
+                    <div class="step-number">03</div>
+                    <div class="step-icon"><i class="fas fa-tasks"></i></div>
+                    <h3>Track Progress</h3>
+                    <p>Your dashboard tracks completion, consistency, and performance improvement over time.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section dark-glass">
+            <div class="container about-content">
+                <div class="text-center mb-4">
+                    <h2 class="section-title">About <span class="text-gradient">AI Study Planner</span></h2>
+                    <p class="section-subtitle">Bridging the gap between academic pressure and career success.</p>
+                </div>
+
+                <div class="about-grid animate-scroll">
+                    <!-- Mission & Vision -->
+                    <div class="about-info glass-card">
+                        <div class="info-block">
+                            <h3><i class="fas fa-rocket"></i> Our Mission</h3>
+                            <p>To provide every student with a personalized, AI-driven roadmap that balances academic excellence with professional skill growth, reducing stress and maximizing potential.</p>
+                        </div>
+                        <div class="info-block">
+                            <h3><i class="fas fa-eye"></i> Our Vision</h3>
+                            <p>A world where every learner can master any subject without sacrificing their well-being or career aspirations through intelligent time management.</p>
+                        </div>
+                    </div>
+
+                    <!-- Core Values -->
+                    <div class="about-values">
+                        <div class="value-item glass-effect">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h4>Personalized Learning</h4>
+                                <p>Plans tailored to your unique pace and goals.</p>
+                            </div>
+                        </div>
+                        <div class="value-item glass-effect">
+                            <i class="fas fa-heartbeat"></i>
+                            <div>
+                                <h4>Mental Well-being</h4>
+                                <p>Schedules that prevent burnout and encourage breaks.</p>
+                            </div>
+                        </div>
+                        <div class="value-item glass-effect">
+                            <i class="fas fa-chart-line"></i>
+                            <div>
+                                <h4>Data-Driven Growth</h4>
+                                <p>Analytics that show you exactly where you're improving.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-left">
+                <h3 class="footer-logo">AI Study Planner</h3>
+                <p>Helping students balance academics and career preparation with intelligent scheduling.</p>
+            </div>
+            <div class="footer-right">
+                <div class="footer-contact">
+                    <a href="mailto:contact@aistudyplanner.com" class="footer-email">
+                        <i class="fas fa-envelope"></i> contact@aistudyplanner.com
+                    </a>
+                    <div class="footer-socials">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 AI Study Planner. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

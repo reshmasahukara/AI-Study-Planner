@@ -1,0 +1,13 @@
+{
+  "name": "ai-study-planner",
+  "version": "1.0.0",
+  "description": "AI Study Planner for B.Tech Students",
+  "main": "api/index.js",
+  "scripts": {
+    "start": "vercel dev"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "pg": "^8.11.3"
+  }
+}

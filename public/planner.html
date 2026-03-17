@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Study Plan | PlanIt AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0a0c10; color: #f5f5f7; }
+        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; }
+        .text-gradient { background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .input-dark { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; color: white; padding: 12px 16px; transition: all 0.2s; position: relative; }
+        .input-dark:focus { border-color: #3b82f6; outline: none; background: rgba(255, 255, 255, 0.08); box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); }
+        select.input-dark { appearance: none; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1rem; padding-right: 2.5rem; z-index: 50; }
+        .sidebar-link.active { background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; color: #3b82f6; }
+        .z-up { z-index: 60; position: relative; }
+        .glass-card { overflow: visible !important; }
+    </style>
+</head>
+<body class="flex min-h-screen">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-[#12141c] border-r border-white/5 flex flex-col p-6 sidebar sticky top-0 hidden md:flex">
+        <div class="flex items-center gap-3 mb-10">
+            <span class="text-2xl text-gradient"><i class="fas fa-brain"></i></span>
+            <span class="text-xl font-bold font-poppins">PlanIt AI</span>
+        </div>
+        
+        <nav class="flex-1 space-y-2">
+            <a href="dashboard.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
+                <i class="fas fa-chart-pie w-5"></i> Dashboard
+            </a>
+            <a href="planner.html" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
+                <i class="fas fa-magic w-5"></i> Create Plan
+            </a>
+            <a href="schedule.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
+                <i class="fas fa-calendar-alt w-5"></i> View Schedule
+            </a>
+            <a href="analytics.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
+                <i class="fas fa-chart-line w-5"></i> Analytics
+            </a>
+            <a href="goals.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
+                <i class="fas fa-bullseye w-5"></i> Goals
+            </a>
+            <a href="chat.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
+                <i class="fas fa-robot w-5"></i> AI Study Assistant
+            </a>
+            <a href="chat.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
+                <i class="fas fa-robot w-5"></i> AI Study Assistant
+            </a>
+        </nav>
+    </aside>
+
+    <main class="flex-1 p-4 md:p-8">
+        <div class="max-w-4xl mx-auto">
+            <header class="mb-10">
+                <h1 class="text-3xl md:text-4xl font-bold font-poppins mb-2 text-gradient">Set Your Study Goals</h1>
+                <p class="text-gray-400">Define your topics and AI will generate the perfect balanced routine for you.</p>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Add Topics -->
+                <div class="glass-card p-6 md:p-8 z-up">
+                    <h2 class="text-xl font-bold mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-sm shadow-lg shadow-blue-600/30 font-black">1</span>
+                        Add Study Topic
+                    </h2>
+                    
+                    <form id="topic-form" class="space-y-4">
+                        <div class="flex flex-col gap-2">
+                            <label class="text-xs font-bold uppercase tracking-widest text-gray-500">Topic Title</label>
+                            <input type="text" id="topic-title" placeholder="e.g. Graph Algorithms" class="input-dark" required>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="flex flex-col gap-2">
+                                <label class="text-xs font-bold uppercase tracking-widest text-gray-500">Category</label>
+                                <select id="topic-category" class="input-dark bg-[#1a1c26] z-up">
+                                    <option value="Academic">🎓 Academic</option>
+                                    <option value="Skill">🛠️ Skill</option>
+                                    <option value="Placement">💼 Placement</option>
+                                    <option value="Personal">🧘 Personal</option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label class="text-xs font-bold uppercase tracking-widest text-gray-500">Difficulty</label>
+                                <select id="topic-difficulty" class="input-dark bg-[#1a1c26] z-up">
+                                    <option value="Easy">🌱 Easy</option>
+                                    <option value="Medium" selected>⚡ Medium</option>
+                                    <option value="Hard">🔥 Hard</option>
+                                    <option value="Advanced">🏆 Advanced</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-bold transition shadow-lg shadow-blue-600/20">
+                            <i class="fas fa-plus mr-2"></i> Add Topic
+                        </button>
+                    </form>
+
+                    <div class="mt-8 pt-8 border-t border-white/5">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-gray-500 mb-4 flex justify-between items-center">
+                            Added Topics
+                            <span id="topic-count" class="text-xs bg-white/5 px-2 py-1 rounded">0</span>
+                        </h3>
+                        <div id="topic-list" class="space-y-3">
+                            <p class="text-gray-600 italic text-sm text-center py-4">No topics added yet.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Generate Controls -->
+                <div class="space-y-8">
+                    <div class="glass-card p-6 md:p-8">
+                        <h2 class="text-xl font-bold mb-6 flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center text-sm shadow-lg shadow-purple-600/30">2</span>
+                            Configure Routine
+                        </h2>
+                        
+                        <div class="space-y-6">
+                            <div class="flex flex-col gap-2">
+                                <div class="flex justify-between">
+                                    <label class="text-sm font-medium text-gray-400">Daily Study Hours</label>
+                                    <span id="hours-val" class="text-sm font-bold text-blue-400">4h</span>
+                                </div>
+                                <input type="range" id="study-hours" min="1" max="16" value="4" class="w-full h-2 bg-white/5 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                                <div class="flex justify-between text-[10px] text-gray-600 font-bold uppercase tracking-wider">
+                                    <span>Extreme Light</span>
+                                    <span>Intensive</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label class="text-sm font-medium text-gray-400">Break Interval</label>
+                                <select id="break-interval" class="input-dark bg-[#1a1c26]">
+                                    <option value="25">Every 25 mins (Pomodoro)</option>
+                                    <option value="50">Every 50 mins</option>
+                                    <option value="90">Every 90 mins</option>
+                                </select>
+                            </div>
+                            <button id="generate-btn" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-xl font-bold text-lg hover:brightness-110 active:scale-[0.98] transition-all shadow-xl shadow-purple-600/30">
+                                <i class="fas fa-wand-sparkles mr-2"></i> Generate AI Schedule
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="p-6 bg-blue-500/10 border border-blue-500/20 rounded-2xl flex gap-4">
+                        <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center shrink-0">
+                            <i class="fas fa-robot text-blue-400"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-blue-100 font-medium mb-1">AI Smart Scheduling</p>
+                            <p class="text-xs text-blue-300/80 leading-relaxed">
+                                Our AI analyzes topic difficulty and allocates longer blocks to 'Hard' subjects while interleaving lighter topics to prevent mental fatigue.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/storage.js"></script>
+    <script src="js/ui-utils.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const topicForm = document.getElementById('topic-form');
+            const topicList = document.getElementById('topic-list');
+            const topicCount = document.getElementById('topic-count');
+            const generateBtn = document.getElementById('generate-btn');
+            const hoursInput = document.getElementById('study-hours');
+            const hoursVal = document.getElementById('hours-val');
+
+            hoursInput.addEventListener('input', (e) => {
+                hoursVal.innerText = e.target.value + 'h';
+            });
+
+            function renderTopics() {
+                const topics = storage.getTopics();
+                topicCount.innerText = topics.length;
+                if (topics.length === 0) {
+                    topicList.innerHTML = '<p class="text-gray-600 italic text-sm text-center py-4">No topics added yet.</p>';
+                    return;
+                }
+                topicList.innerHTML = topics.map(topic => `
+                    <div class="flex items-center justify-between p-3.5 bg-white/5 rounded-xl border border-white/5 group hover:border-white/10 transition">
+                        <div class="flex items-center gap-3">
+                            <div class="w-2 h-2 rounded-full ${topic.difficulty === 'Hard' || topic.difficulty === 'Advanced' ? 'bg-red-500' : topic.difficulty === 'Medium' ? 'bg-orange-500' : 'bg-green-500'} shadow-[0_0_10px_rgba(0,0,0,0.5)]"></div>
+                            <div>
+                                <div class="text-sm font-semibold">${topic.title}</div>
+                                <div class="text-[10px] text-gray-500 font-bold uppercase tracking-tighter">${topic.category} • ${topic.difficulty}</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <button onclick="editTopic(${topic.id})" class="text-gray-600 hover:text-blue-400 transition p-2 hover:bg-white/5 rounded-lg">
+                                <i class="fas fa-edit text-xs"></i>
+                            </button>
+                            <button onclick="removeTopic(${topic.id})" class="text-gray-600 hover:text-red-400 transition p-2 hover:bg-red-500/10 rounded-lg">
+                                <i class="fas fa-trash-alt text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            window.editTopic = (id) => {
+                const topic = storage.getTopics().find(t => t.id === id);
+                if (topic) {
+                    document.getElementById('topic-title').value = topic.title;
+                    document.getElementById('topic-category').value = topic.category;
+                    document.getElementById('topic-difficulty').value = topic.difficulty;
+                    window.removeTopic(id); // Remove and re-add for simplicity in this mock
+                }
+            };
+
+            window.removeTopic = (id) => {
+                const topics = storage.getTopics().filter(t => t.id !== id);
+                localStorage.setItem('userTopics', JSON.stringify(topics));
+                renderTopics();
+            };
+
+            topicForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const title = document.getElementById('topic-title').value;
+                const category = document.getElementById('topic-category').value;
+                const difficulty = document.getElementById('topic-difficulty').value;
+                
+                storage.addTopic({ title, category, difficulty });
+                topicForm.reset();
+                renderTopics();
+            });
+
+            generateBtn.addEventListener('click', () => {
+                const topics = storage.getTopics();
+                const hours = parseFloat(hoursInput.value);
+                
+                if (topics.length === 0) {
+                    alert('Please add at least one topic first.');
+                    return;
+                }
+
+                generateBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Generating Plan...';
+                generateBtn.disabled = true;
+
+                setTimeout(() => {
+                    // AI Scheduling Logic Simulation
+                    const schedule = [];
+                    let currentTime = new Date();
+                    currentTime.setHours(9, 0, 0, 0); // Start at 9:00 AM
+
+                    // Sort topics by difficulty (Hard first)
+                    const sortedTopics = [...topics].sort((a, b) => {
+                        const score = { 'Hard': 3, 'Medium': 2, 'Easy': 1 };
+                        return score[b.difficulty] - score[a.difficulty];
+                    });
+
+                    const timePerTopic = hours / topics.length;
+
+                    sortedTopics.forEach((topic, index) => {
+                        const start = currentTime.toTimeString().substring(0, 5);
+                        schedule.push({
+                            id: Date.now() + index,
+                            topic: topic.topic || topic.title, // Handle both Title/Topic naming
+                            category: topic.category,
+                            startTime: start,
+                            duration: timePerTopic.toFixed(1),
+                            status: 'pending'
+                        });
+                        
+                        // Increment time
+                        currentTime.setMinutes(currentTime.getMinutes() + (timePerTopic * 60));
+                    });
+
+                    storage.saveSchedule(schedule);
+                    window.location.href = 'schedule.html';
+                }, 1200);
+            });
+
+            renderTopics();
+        });
+    </script>
+</body>
+</html>

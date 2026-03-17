@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Analytics | PlanIt AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0a0c10; color: #f5f5f7; }
+        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; margin-bottom: 24px; }
+        .text-gradient { background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .sidebar-link.active { background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; color: #3b82f6; }
+        .stat-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border-bottom-width: 4px; border-color: rgba(255,255,255,0.05); }
+        .stat-card:hover { transform: translateY(-5px); border-color: rgba(59, 130, 246, 0.2); }
+    </style>
+</head>
+<body class="flex min-h-screen">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-[#12141c] border-r border-white/5 flex flex-col p-6 sidebar sticky top-0 hidden md:flex">
+        <div class="flex items-center gap-3 mb-10">
+            <span class="text-2xl text-gradient"><i class="fas fa-brain"></i></span>
+            <span class="text-xl font-bold font-poppins">PlanIt AI</span>
+        </div>
+        
+        <nav class="flex-1 space-y-2">
+            <a href="dashboard.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
+                <i class="fas fa-chart-pie w-5"></i> Dashboard
+            </a>
+            <a href="planner.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
+                <i class="fas fa-magic w-5"></i> Create Plan
+            </a>
+            <a href="schedule.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
+                <i class="fas fa-calendar-alt w-5"></i> View Schedule
+            </a>
+            <a href="analytics.html" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
+                <i class="fas fa-chart-line w-5"></i> Analytics
+            </a>
+            <a href="goals.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
+                <i class="fas fa-bullseye w-5"></i> Goals
+            </a>
+            <a href="chat.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
+                <i class="fas fa-robot w-5"></i> AI Study Assistant
+            </a>
+            <a href="chat.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
+                <i class="fas fa-robot w-5"></i> AI Study Assistant
+            </a>
+        </nav>
+    </aside>
+
+    <main class="flex-1 p-4 md:p-8">
+        <header class="mb-10">
+            <h1 class="text-3xl font-bold font-poppins mb-1 text-gradient">Your Progress Dashboard 📈</h1>
+            <p class="text-gray-400">Data-driven insights into your study habits and consistency.</p>
+        </header>
+
+        <!-- Stats Row -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="glass-card p-6 stat-card border-blue-600/30">
+                <div class="text-[10px] text-gray-500 uppercase font-black tracking-widest mb-2 font-poppins">Focus Score</div>
+                <div class="text-4xl font-black font-poppins counter" id="eff-score">0%</div>
+                <p class="text-[10px] text-gray-600 mt-2">Based on completion rate</p>
+            </div>
+            <div class="glass-card p-6 stat-card border-purple-600/30">
+                <div class="text-[10px] text-gray-500 uppercase font-black tracking-widest mb-2 font-poppins">Goal Mastery</div>
+                <div class="text-4xl font-black font-poppins counter" id="completion-rate">0%</div>
+                <p class="text-[10px] text-gray-600 mt-2">Target milestones hit</p>
+            </div>
+            <div class="glass-card p-6 stat-card border-green-600/30">
+                <div class="text-[10px] text-gray-500 uppercase font-black tracking-widest mb-2 font-poppins">Avg Depth</div>
+                <div class="text-4xl font-black font-poppins leading-none counter" id="avg-session">0<span class="text-lg ml-1 text-gray-500">h</span></div>
+                <p class="text-[10px] text-gray-600 mt-2">Per study session</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Weekly Intensity -->
+            <div class="glass-card p-6 md:p-8 flex flex-col h-[450px]">
+                <div class="flex justify-between items-center mb-10">
+                    <h3 class="text-lg font-bold font-poppins">Weekly Intensity</h3>
+                    <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest bg-white/5 px-2 py-1 rounded">Last 7 Days</span>
+                </div>
+                <div class="flex-1 relative">
+                    <canvas id="weekly-chart-canvas"></canvas>
+                </div>
+                
+                <div id="analytics-empty" class="hidden text-center py-20 opacity-30 flex-1 flex flex-col items-center justify-center">
+                    <i class="fas fa-chart-bar text-5xl mb-4"></i>
+                    <p class="text-sm">Log your first session to see trends.</p>
+                </div>
+            </div>
+
+            <!-- Subject Allocation -->
+            <div class="glass-card p-6 md:p-8 flex flex-col h-[450px]">
+                 <div class="flex justify-between items-center mb-10">
+                    <h3 class="text-lg font-bold font-poppins">Subject Allocation</h3>
+                    <i class="fas fa-info-circle text-gray-600"></i>
+                </div>
+                <div class="flex-1 relative">
+                    <canvas id="subject-chart-canvas"></canvas>
+                </div>
+                
+                <div id="breakdown-empty" class="hidden text-center py-20 opacity-30 flex flex-col items-center justify-center">
+                    <i class="fas fa-layer-group text-5xl mb-4"></i>
+                    <p class="text-sm">No data available for distribution.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8 glass-card p-8 flex flex-col md:flex-row gap-8 items-center border border-blue-500/10">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-2xl shadow-xl shadow-blue-600/20 shrink-0">
+                <i class="fas fa-lightbulb text-white"></i>
+            </div>
+            <div>
+                <h4 class="text-xl font-bold font-poppins mb-1">AI Productivity Tip</h4>
+                <p id="productivity-tip" class="text-gray-400 text-sm leading-relaxed max-w-2xl">
+                    You haven't logged enough data yet. Complete at least 3 sessions for our AI to analyze your optimal focus windows and provide personalized timing suggestions.
+                </p>
+            </div>
+        </div>
+    </main>    <script src="js/storage.js"></script>
+    <script src="js/ui-utils.js"></script>
+    <script src="js/analytics.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sessions = storage.getSessions();
+            const schedule = storage.getSchedule();
+            const stats = storage.getStats();
+
+            if (sessions.length === 0) {
+                document.getElementById('analytics-empty').classList.remove('hidden');
+                document.getElementById('breakdown-empty').classList.remove('hidden');
+            }
+
+            // Animated Counters
+            const totalTasks = schedule.length;
+            const completedTasks = stats.tasksCompleted;
+            const rate = totalTasks > 0 ? Math.round((completedTasks/totalTasks) * 100) : 0;
+            animateValue('completion-rate', 0, rate, 1500, '%');
+            
+            const avg = sessions.length > 0 ? (stats.totalHours / sessions.length).toFixed(1) : 0;
+            animateValue('avg-session', 0, parseFloat(avg), 1500, 'h');
+
+            const eff = rate > 0 ? Math.round(rate * 0.92) : 0;
+            animateValue('eff-score', 0, eff, 1500, '%');
+
+            function animateValue(id, start, end, duration, suffix = '') {
+                const obj = document.getElementById(id);
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    obj.innerHTML = (progress * (end - start) + start).toFixed(id === 'avg-session' ? 1 : 0) + (suffix ? `<span class="text-lg ml-1 text-gray-500 font-bold">${suffix}</span>` : '');
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+        });
+    </script>
+</body>
+</html>

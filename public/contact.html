@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Support | AI Study Planner</title>
+    <link rel="stylesheet" href="styles/global.css">
+    
+    <script>
+        const savedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</head>
+<body style="min-height: 100vh; display: flex; flex-direction: column;">
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <span style="font-size: 28px;">📅</span> 
+                <span>AI Study Planner</span>
+            </a>
+            
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#features">Features</a>
+                <a href="index.html#how-it-works">How It Works</a>
+                <a href="about.html">About</a>
+                <a href="contact.html" style="color: var(--primary-color);">Contact</a>
+                <a href="login.html" class="btn btn-secondary" style="margin-left: 16px;">Login</a>
+                <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                <button id="theme-toggle" class="btn btn-secondary" style="padding: 8px 12px; border-radius: 50%;">🌙</button>
+            </div>
+
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container fade-in" style="padding: 140px 20px 80px; max-width: 600px; flex: 1;">
+        <div class="text-center mb-4">
+            <h1 style="font-size: 40px; margin-bottom: 16px;">Get In Touch</h1>
+            <p style="font-size: 18px; color: var(--text-secondary);">Have a question or feedback? We'd love to hear from you.</p>
+        </div>
+
+        <div class="glass-card" style="padding: 40px;">
+            <form action="#" class="allow-submit">
+                <div class="grid grid-cols-2">
+                    <div class="form-group">
+                        <label class="form-label">First Name</label>
+                        <input type="text" class="form-control" placeholder="John" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Last Name</label>
+                        <input type="text" class="form-control" placeholder="Doe" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-control" placeholder="john@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Subject</label>
+                    <select class="form-control" style="appearance: auto; padding-right: 32px;" required>
+                        <option value="" disabled selected>Select an option</option>
+                        <option value="support">Technical Support</option>
+                        <option value="feedback">Feature Feedback</option>
+                        <option value="billing">Billing Inquiry</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label class="form-label">Message</label>
+                    <textarea class="form-control" rows="5" placeholder="How can we help you today?" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 18px; padding: 16px;">Send Message</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer style="background: var(--nav-bg); border-top: 1px solid var(--border-color); padding: 40px 20px; text-align: center; margin-top: auto;">
+        <div class="container">
+            <div class="logo justify-center mb-3" style="justify-content: center;">
+                <span style="font-size: 24px;">📅</span> AI Study Planner
+            </div>
+            <div style="display: flex; gap: 24px; justify-content: center; margin-bottom: 24px;">
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">GitHub</a>
+                <a href="#">LinkedIn</a>
+            </div>
+            <p style="font-size: 14px; color: var(--text-secondary);">&copy; 2026 AI Study Planner. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

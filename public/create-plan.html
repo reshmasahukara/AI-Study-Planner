@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Study Plan | AI Study Planner</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script>
+        const savedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <nav class="navbar" style="border-bottom: 1px solid var(--border-color);">
+        <div class="nav-container" style="padding: 0 24px; justify-content: space-between; width: 100%;">
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <button id="sidebar-toggle" class="btn btn-secondary" style="padding: 8px 12px; font-size: 1.2rem;">☰</button>
+                <a href="/dashboard.html" class="logo">
+                    <span style="font-size: 24px;">📅</span> 
+                    <span>AI Study Planner</span>
+                </a>
+            </div>
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <button id="theme-toggle" class="btn btn-secondary" style="padding: 8px 12px; border-radius: 50%;">🌙</button>
+                <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--gradient-primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer;">
+                    JD
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <a href="/dashboard.html" class="sidebar-link">
+                    <span>📊</span> Dashboard
+                </a>
+                <a href="/create-plan.html" class="sidebar-link active">
+                    <span>✨</span> Create Study Plan
+                </a>
+                <a href="/schedule.html" class="sidebar-link">
+                    <span>📅</span> View Schedule
+                </a>
+                <a href="/analytics.html" class="sidebar-link">
+                    <span>📈</span> Progress Analytics
+                </a>
+                <a href="/goals.html" class="sidebar-link">
+                    <span>🎯</span> Goals
+                </a>
+                
+                <div style="margin-top: auto;"></div>
+                <div style="padding: 0 16px; margin: 24px 0 8px; font-size: 12px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">Preferences</div>
+                
+                <a href="/settings.html" class="sidebar-link">
+                    <span>⚙️</span> Settings
+                </a>
+                <a href="/login.html" class="sidebar-link" style="color: var(--danger);">
+                    <span>🚪</span> Logout
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content fade-in">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <h1 style="margin-bottom: 8px;">Generate AI Study Plan</h1>
+                <p style="margin-bottom: 32px;">Input your requirements and let the AI build an optimized minute-by-minute schedule.</p>
+
+                <div class="glass-card">
+                    <form action="/schedule.html" data-redirect="/schedule.html">
+                        
+                        <div class="grid grid-cols-2">
+                            <div class="form-group">
+                                <label class="form-label">Total Study Hours per Day</label>
+                                <input type="number" class="form-control" min="1" max="16" placeholder="e.g., 6" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Preferred Break Time</label>
+                                <select class="form-control" required style="appearance: auto; padding-right: 32px;">
+                                    <option value="" disabled selected>Select frequency</option>
+                                    <option value="pomodoro">Pomodoro (25m study / 5m break)</option>
+                                    <option value="long">Deep Work (90m study / 20m break)</option>
+                                    <option value="standard">Standard (50m study / 10m break)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 24px 0;">
+
+                        <div class="form-group">
+                            <label class="form-label">Academic Subjects (comma-separated)</label>
+                            <input type="text" class="form-control" placeholder="e.g., Operating Systems, Computer Networks, DBMS" required>
+                        </div>
+
+                        <div class="grid grid-cols-2">
+                            <div class="form-group">
+                                <label class="form-label">DSA Practice Hours</label>
+                                <input type="number" class="form-control" min="0" max="10" placeholder="e.g., 2">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Skill Development Focus</label>
+                                <input type="text" class="form-control" placeholder="e.g., React.js, Node.js">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Competitive Exam Preparation</label>
+                            <select class="form-control" style="appearance: auto;">
+                                <option value="none">None right now</option>
+                                <option value="gate">GATE</option>
+                                <option value="cat">CAT</option>
+                                <option value="placements">Campus Placements</option>
+                                <option value="upsc">UPSC</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Personalization Notes (Optional)</label>
+                            <textarea class="form-control" rows="3" placeholder="e.g., I'm weak at Graph algorithms, prioritize them along with OS memory management."></textarea>
+                        </div>
+
+                        <div style="margin-top: 32px; text-align: right;">
+                            <button type="button" class="btn btn-secondary" style="margin-right: 12px;">Reset</button>
+                            <button type="submit" class="btn btn-primary">✨ Generate Study Plan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>

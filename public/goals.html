@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goals | PlanIt AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0a0c10; color: #f5f5f7; }
+        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; }
+        .text-gradient { background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .input-dark { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; color: white; padding: 12px 16px; transition: all 0.2s; }
+        .input-dark:focus { border-color: #3b82f6; outline: none; background: rgba(255, 255, 255, 0.08); }
+        .sidebar-link.active { background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; color: #3b82f6; }
+    </style>
+</head>
+<body class="flex min-h-screen">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-[#12141c] border-r border-white/5 flex flex-col p-6 sidebar sticky top-0 hidden md:flex">
+        <div class="flex items-center gap-3 mb-10">
+            <span class="text-2xl text-gradient"><i class="fas fa-brain"></i></span>
+            <span class="text-xl font-bold font-poppins">PlanIt AI</span>
+        </div>
+        
+        <nav class="flex-1 space-y-2">
+            <a href="dashboard.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
+                <i class="fas fa-chart-pie w-5"></i> Dashboard
+            </a>
+            <a href="planner.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
+                <i class="fas fa-magic w-5"></i> Create Plan
+            </a>
+            <a href="schedule.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
+                <i class="fas fa-calendar-alt w-5"></i> View Schedule
+            </a>
+            <a href="analytics.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
+                <i class="fas fa-chart-line w-5"></i> Analytics
+            </a>
+            <a href="goals.html" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
+                <i class="fas fa-bullseye w-5"></i> Goals
+            </a>
+            <a href="chat.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
+                <i class="fas fa-robot w-5"></i> AI Study Assistant
+            </a>
+            <a href="chat.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
+                <i class="fas fa-robot w-5"></i> AI Study Assistant
+            </a>
+        </nav>
+    </aside>
+
+    <main class="flex-1 p-4 md:p-8">
+        <div class="max-w-4xl mx-auto">
+            <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
+                <div>
+                    <h1 class="text-3xl font-bold font-poppins mb-1 text-gradient">Set Your Milestones 🎯</h1>
+                    <p class="text-gray-400">Manual tracking for your biggest objectives and long-term targets.</p>
+                </div>
+                <button onclick="toggleModal()" class="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition shadow-lg shadow-blue-600/20">
+                    <i class="fas fa-plus mr-2"></i> Add New Goal
+                </button>
+            </header>
+
+            <div id="goals-list" class="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+                <!-- Dynamic Goals Load Here -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="empty-state" class="hidden text-center py-20 glass-card">
+                <div class="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-trophy text-4xl text-gray-700"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 font-poppins">No goals active.</h3>
+                <p class="text-gray-500 mb-8 max-w-xs mx-auto text-sm">Define what you want to achieve (e.g., "Master React", "Final Exams") and track your compounding progress.</p>
+                <button onclick="toggleModal()" class="bg-blue-600/10 hover:bg-blue-600/20 text-blue-400 border border-blue-400/20 px-8 py-3 rounded-xl font-bold transition">
+                    + Create First Goal
+                </button>
+            </div>
+        </div>
+
+        <!-- Add Goal Modal -->
+        <div id="goal-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50 transition-all">
+            <div class="glass-card w-full max-w-md p-6 md:p-8 bg-[#12141c] shadow-2xl ring-1 ring-white/10">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold font-poppins">Create New Goal</h2>
+                    <button onclick="toggleModal()" class="text-gray-500 hover:text-white"><i class="fas fa-times"></i></button>
+                </div>
+                <form id="goal-form" class="space-y-5">
+                    <div class="flex flex-col gap-2">
+                        <label class="text-xs font-bold uppercase tracking-widest text-gray-500">Goal Title</label>
+                        <input type="text" id="goal-title" class="input-dark w-full" placeholder="e.g. Master Data Structures" required>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="text-xs font-bold uppercase tracking-widest text-gray-500">Target Deadline</label>
+                        <input type="date" id="goal-deadline" class="input-dark w-full" required>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex flex-col gap-2">
+                            <label class="text-xs font-bold uppercase tracking-widest text-gray-500">Priority</label>
+                            <select id="goal-priority" class="input-dark bg-[#1a1c26] w-full">
+                                <option value="High">🔥 High</option>
+                                <option value="Medium" selected>⚡ Medium</option>
+                                <option value="Low">🌱 Low</option>
+                            </select>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="text-xs font-bold uppercase tracking-widest text-gray-500">Start %</label>
+                            <input type="number" id="goal-progress" value="0" min="0" max="100" class="input-dark w-full">
+                        </div>
+                    </div>
+                    <div class="flex gap-4 pt-4">
+                        <button type="button" onclick="toggleModal()" class="flex-1 py-3 rounded-xl border border-white/10 font-bold text-gray-400 hover:bg-white/5 transition">Cancel</button>
+                        <button type="submit" class="flex-1 bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-bold transition shadow-lg shadow-blue-600/20">Save Milestone</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/storage.js"></script>
+    <script src="js/ui-utils.js"></script>
+    <script>
+        const modal = document.getElementById('goal-modal');
+        const form = document.getElementById('goal-form');
+        const list = document.getElementById('goals-list');
+        const emptyState = document.getElementById('empty-state');
+
+        function toggleModal() {
+            modal.classList.toggle('hidden');
+        }
+
+        function renderGoals() {
+            const goals = storage.getGoals();
+            if (!goals || goals.length === 0) {
+                emptyState.classList.remove('hidden');
+                list.innerHTML = '';
+                return;
+            }
+            emptyState.classList.add('hidden');
+            list.innerHTML = goals.map(goal => `
+                <div class="glass-card p-6 hover:border-white/20 transition-all group">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex-1 pr-4">
+                            <span class="text-[9px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded shadow-sm ${goal.priority === 'High' ? 'bg-red-500/10 text-red-500 border border-red-500/10' : 'bg-blue-500/10 text-blue-400 border border-blue-500/10'} font-poppins">${goal.priority} Priority</span>
+                            <h3 class="text-lg font-bold mt-2 font-poppins line-clamp-1">${goal.title}</h3>
+                            <p class="text-xs text-gray-500 mt-1 flex items-center gap-1.5"><i class="far fa-calendar-alt"></i> Deadline: ${new Date(goal.deadline).toLocaleDateString()}</p>
+                        </div>
+                        <div class="text-2xl font-black text-blue-400 font-poppins">${goal.progress}%</div>
+                    </div>
+                    <div class="w-full bg-white/5 h-2 rounded-full overflow-hidden mb-6 border border-white/5">
+                        <div class="bg-gradient-to-r from-blue-600 to-purple-500 h-full transition-all duration-1000 shadow-[0_0_10px_rgba(59,130,246,0.5)]" style="width: ${goal.progress}%"></div>
+                    </div>
+                    <div class="flex gap-3">
+                        <button onclick="updateProg(${goal.id}, ${Math.min(100, goal.progress + 10)})" class="flex-1 py-2.5 rounded-xl bg-white/5 hover:bg-blue-600/10 text-xs font-bold text-blue-400 border border-white/5 hover:border-blue-400/30 transition-all font-poppins">
+                            <i class="fas fa-arrow-up mr-2"></i> Progress +10%
+                        </button>
+                        <button onclick="removeGoal(${goal.id})" class="p-2.5 text-gray-600 hover:text-red-500 transition-all hover:bg-red-500/10 rounded-xl border border-transparent hover:border-red-500/20">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const title = document.getElementById('goal-title').value;
+            const deadline = document.getElementById('goal-deadline').value;
+            const priority = document.getElementById('goal-priority').value;
+            const progress = parseInt(document.getElementById('goal-progress').value);
+
+            storage.addGoal({ title, deadline, priority, progress });
+            form.reset();
+            toggleModal();
+            renderGoals();
+        });
+
+        window.updateProg = (id, prog) => {
+            storage.updateGoalProgress(id, prog);
+            renderGoals();
+        };
+
+        window.removeGoal = (id) => {
+            if(confirm('Archive this goal?')) {
+                const goals = storage.getGoals().filter(g => g.id !== id);
+                localStorage.setItem('userGoals', JSON.stringify(goals));
+                renderGoals();
+            }
+        };
+
+        renderGoals();
+    </script>
+</body>
+</html>

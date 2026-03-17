@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | AI Study Planner</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0a0c10; color: #f5f5f7; display: flex; align-items: center; justify-content: center; min-height: 100vh; overflow-x: hidden; }
+        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; }
+        .text-gradient { background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .input-dark { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; color: white; transition: all 0.2s; }
+        .input-dark:focus { border-color: #3b82f6; outline: none; background: rgba(255, 255, 255, 0.08); box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); }
+        .otp-input { width: 45px; height: 55px; text-align: center; font-size: 1.5rem; font-weight: 700; }
+        @media (max-width: 400px) { .otp-input { width: 35px; height: 45px; } }
+        .step-hidden { display: none; }
+        .fade-in { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div class="w-full max-w-md p-6 fade-in">
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center gap-2 mb-4">
+                <span class="text-3xl text-gradient"><i class="fas fa-brain"></i></span>
+                <span class="text-2xl font-bold font-poppins">PlanIt AI</span>
+            </div>
+        </div>
+
+        <!-- Step 1: Sign Up Form -->
+        <div id="signup-step" class="glass-card p-8 md:p-10">
+            <h2 class="text-2xl font-bold font-poppins mb-2">Create Account</h2>
+            <p class="text-gray-400 text-sm mb-8">Join thousands of students optimizing their study flow.</p>
+
+            <form id="registration-form" class="space-y-5">
+                <div class="space-y-2">
+                    <label class="text-xs font-bold uppercase tracking-wider text-gray-500">Full Name</label>
+                    <input type="text" id="signup-name" placeholder="John Doe" class="input-dark w-full px-4 py-3" required>
+                </div>
+                <div class="space-y-2">
+                    <label class="text-xs font-bold uppercase tracking-wider text-gray-500">Email Address</label>
+                    <input type="email" id="signup-email" placeholder="john@example.com" class="input-dark w-full px-4 py-3" required>
+                </div>
+                <div class="space-y-2">
+                    <label class="text-xs font-bold uppercase tracking-wider text-gray-500">Password</label>
+                    <input type="password" id="signup-password" placeholder="••••••••" class="input-dark w-full px-4 py-3" required minlength="8">
+                </div>
+                <div class="pb-4">
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" required class="w-4 h-4 rounded border-white/10 bg-white/5 accent-blue-600">
+                        <span class="text-xs text-gray-400 group-hover:text-gray-300 transition">I agree to the <a href="#" class="text-blue-400 hover:underline">Terms of Service</a></span>
+                    </label>
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-xl font-bold text-lg hover:brightness-110 active:scale-[0.98] transition-all shadow-xl shadow-blue-600/20">
+                    Create Account
+                </button>
+            </form>
+
+            <p class="text-center mt-8 text-sm text-gray-500">
+                Already have an account? <a href="login.html" class="text-blue-400 font-bold hover:underline">Log In</a>
+            </p>
+        </div>
+
+        <!-- Step 2: OTP Verification -->
+        <div id="otp-step" class="glass-card p-8 md:p-10 step-hidden">
+            <button onclick="backToSignup()" class="text-gray-500 hover:text-white mb-6 text-sm transition flex items-center gap-2">
+                <i class="fas fa-arrow-left"></i> Change Email
+            </button>
+            <h2 class="text-2xl font-bold font-poppins mb-2">Verify Email</h2>
+            <p class="text-gray-400 text-sm mb-8">We've sent a code to <span id="display-email" class="text-white font-medium"></span></p>
+
+            <form id="otp-form" class="space-y-8">
+                <div class="flex justify-between gap-2" id="otp-inputs">
+                    <input type="text" maxlength="1" class="otp-input input-dark" pattern="\d*" inputmode="numeric">
+                    <input type="text" maxlength="1" class="otp-input input-dark" pattern="\d*" inputmode="numeric">
+                    <input type="text" maxlength="1" class="otp-input input-dark" pattern="\d*" inputmode="numeric">
+                    <input type="text" maxlength="1" class="otp-input input-dark" pattern="\d*" inputmode="numeric">
+                    <input type="text" maxlength="1" class="otp-input input-dark" pattern="\d*" inputmode="numeric">
+                    <input type="text" maxlength="1" class="otp-input input-dark" pattern="\d*" inputmode="numeric">
+                </div>
+
+                <div class="text-center">
+                    <p class="text-sm text-gray-500 mb-2">Resend code in <span id="timer-val" class="text-blue-400 font-bold">01:59</span></p>
+                    <button type="button" id="resend-btn" disabled class="text-sm font-bold text-gray-600 cursor-not-allowed">Resend OTP</button>
+                </div>
+
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-bold text-lg transition shadow-lg shadow-blue-600/20">
+                    Verify & Register
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 px-6 py-3 rounded-xl bg-green-500 text-white font-bold shadow-2xl transition-all opacity-0 translate-y-10 z-50">
+        Account Verified Successfully!
+    </div>
+
+    <script src="js/ui-utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // UI logic for OTP inputs
+        const inputs = document.querySelectorAll('.otp-input');
+        inputs.forEach((input, index) => {
+            input.addEventListener('keyup', (e) => {
+                if (e.key >= 0 && e.key <= 9) {
+                    if (index < inputs.length - 1) inputs[index + 1].focus();
+                } else if (e.key === 'Backspace') {
+                    if (index > 0) inputs[index - 1].focus();
+                }
+            });
+            input.addEventListener('input', (e) => {
+                if (e.target.value.length > 1) {
+                    e.target.value = e.target.value.slice(0, 1);
+                }
+            });
+        });
+
+        function backToSignup() {
+            document.getElementById('otp-step').classList.add('step-hidden');
+            document.getElementById('signup-step').classList.remove('step-hidden');
+            document.getElementById('signup-step').classList.add('fade-in');
+        }
+    </script>
+</body>
+</html>
